@@ -43,6 +43,7 @@ extern unsigned int sysctl_sched_sync_hint_enable;
 extern unsigned int sysctl_sched_initial_task_util;
 extern unsigned int sysctl_sched_cstate_aware;
 
+<<<<<<< HEAD
 #ifdef CONFIG_SCHED_HMP
 
 enum freq_reporting_policy {
@@ -85,6 +86,14 @@ extern unsigned int sysctl_sched_short_sleep;
 #define sysctl_sched_enable_hmp_task_placement 0
 
 #endif /* CONFIG_SCHED_HMP */
+=======
+#ifdef CONFIG_SCHED_WALT
+extern unsigned int sysctl_sched_use_walt_cpu_util;
+extern unsigned int sysctl_sched_use_walt_task_util;
+extern unsigned int sysctl_sched_walt_init_task_load_pct;
+extern unsigned int sysctl_sched_walt_cpu_high_irqload;
+#endif
+>>>>>>> dc000b1... Remove HMP for EAS bringup on msm-4.4
 
 enum sched_tunable_scaling {
 	SCHED_TUNABLESCALING_NONE,
@@ -109,18 +118,6 @@ int sched_proc_update_handler(struct ctl_table *table, int write,
 		void __user *buffer, size_t *length,
 		loff_t *ppos);
 #endif
-
-extern int sched_migrate_notify_proc_handler(struct ctl_table *table,
-		int write, void __user *buffer, size_t *lenp, loff_t *ppos);
-
-extern int sched_hmp_proc_update_handler(struct ctl_table *table,
-		int write, void __user *buffer, size_t *lenp, loff_t *ppos);
-
-extern int sched_boost_handler(struct ctl_table *table, int write,
-			void __user *buffer, size_t *lenp, loff_t *ppos);
-
-extern int sched_window_update_handler(struct ctl_table *table,
-		 int write, void __user *buffer, size_t *lenp, loff_t *ppos);
 
 /*
  *  control realtime throttling:
