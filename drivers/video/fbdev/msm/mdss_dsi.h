@@ -629,6 +629,7 @@ struct mdss_dsi_ctrl_pdata {
 
 	bool phy_power_off;
 
+<<<<<<< HEAD
 #if defined(CONFIG_LGE_DISPLAY_ERROR_DETECT)
 	bool err_irq_enabled;
 	u8 err_result;
@@ -663,6 +664,14 @@ struct mdss_dsi_ctrl_pdata {
 	struct dsi_panel_cmds bist_on_cmds;
 	struct dsi_panel_cmds bist_off_cmds;
 #endif
+=======
+	struct notifier_block wake_notif;
+	struct task_struct *wake_thread;
+	struct completion wake_comp;
+	wait_queue_head_t wake_waitq;
+	atomic_t disp_is_on;
+	atomic_t needs_wake;
+>>>>>>> 056c17e... msm: mdss: Power on display asynchronously as early as possible
 };
 
 struct dsi_status_data {
