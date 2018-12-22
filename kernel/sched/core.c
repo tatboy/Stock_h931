@@ -95,9 +95,6 @@
 #include <trace/events/sched.h>
 #include "walt.h"
 
-<<<<<<< HEAD
-ATOMIC_NOTIFIER_HEAD(load_alert_notifier_head);
-=======
 static atomic_t __su_instances;
 
 int su_instances(void)
@@ -129,7 +126,6 @@ void su_exit(void)
 {
 	atomic_dec(&__su_instances);
 }
->>>>>>> dc000b1... Remove HMP for EAS bringup on msm-4.4
 
 DEFINE_MUTEX(sched_domains_mutex);
 DEFINE_PER_CPU_SHARED_ALIGNED(struct rq, runqueues);
@@ -2206,47 +2202,6 @@ void __dl_clear_params(struct task_struct *p)
 	dl_se->dl_yielded = 0;
 }
 
-<<<<<<< HEAD
-#ifdef CONFIG_SCHED_HMP
-/*
- * sched_exit() - Set EXITING_TASK_MARKER in task's ravg.demand field
- *
- * Stop accounting (exiting) task's future cpu usage
- *
- * We need this so that reset_all_windows_stats() can function correctly.
- * reset_all_window_stats() depends on do_each_thread/for_each_thread task
- * iterators to reset *all* task's statistics. Exiting tasks however become
- * invisible to those iterators. sched_exit() is called on a exiting task prior
- * to being removed from task_list, which will let reset_all_window_stats()
- * function correctly.
- */
-void sched_exit(struct task_struct *p)
-{
-	unsigned long flags;
-	struct rq *rq;
-	u64 wallclock;
-
-	sched_set_group_id(p, 0);
-
-	rq = task_rq_lock(p, &flags);
-
-	/* rq->curr == p */
-	wallclock = sched_ktime_clock();
-	update_task_ravg(rq->curr, rq, TASK_UPDATE, wallclock, 0);
-	dequeue_task(rq, p, 0);
-	reset_task_stats(p);
-	p->ravg.mark_start = wallclock;
-	p->ravg.sum_history[0] = EXITING_TASK_MARKER;
-	free_task_load_ptrs(p);
-
-	enqueue_task(rq, p, 0);
-	clear_ed_task(p, rq);
-	task_rq_unlock(rq, p, &flags);
-}
-#endif /* CONFIG_SCHED_HMP */
-
-=======
->>>>>>> dc000b1... Remove HMP for EAS bringup on msm-4.4
 /*
  * Perform scheduler related setup for a newly forked process p.
  * p is forked by current.
