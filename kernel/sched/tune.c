@@ -712,11 +712,8 @@ schedtune_boostgroup_init(struct schedtune *st)
 		bg = &per_cpu(cpu_boost_groups, cpu);
 		bg->group[st->idx].boost = 0;
 		bg->group[st->idx].tasks = 0;
-<<<<<<< HEAD
 		raw_spin_lock_init(&bg->lock);
-=======
 		bg->group[st->idx].ts = 0;
->>>>>>> 1eda28b... BACKPORT: ANDROID: Add hold functionality to schedtune CPU boost
 	}
 
 	return 0;
